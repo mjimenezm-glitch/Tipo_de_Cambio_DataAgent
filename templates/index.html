@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Prototipo académico para explorar el tipo de cambio USD/CRC con datos trazables.">
+    <title>Tipo de Cambio · Data Agent</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Inicio: Explorador del tipo de cambio">
+          <span class="brand-mark" aria-hidden="true">CR</span>
+          <span>Explorador económico <small>Tipo de cambio · USD / CRC</small></span>
+        </a>
+        <span class="status" id="status">Consultando datos…</span>
+      </header>
+
+      <section class="intro">
+        <p class="eyebrow">INDICADORES ECONÓMICOS · COSTA RICA</p>
+        <h1>Tipo de cambio del dólar</h1>
+        <p class="lead">Consulta y explora los registros de compra y venta del dólar. Las respuestas se calculan con la serie disponible y muestran su periodo y fuente.</p>
+      </section>
+
+      <section class="notice" id="demo-notice" hidden>
+        <strong>No hay datos cargados.</strong> Importa una serie en formato Excel o CSV para comenzar.
+      </section>
+      <section class="workspace">
+        <div class="chat-card">
+          <section class="import-card" aria-labelledby="import-title">
+            <div class="import-copy">
+              <p class="eyebrow">FUENTE DE DATOS</p>
+              <h2 id="import-title">Actualizar serie</h2>
+              <p>El registro oficial 2026 viene incluido. También puedes cargar un archivo Excel o CSV.</p>
+            </div>
+            <form id="import-form" class="import-form">
+              <label class="sr-only" for="data-file">Selecciona un Excel o CSV</label>
+              <input id="data-file" name="file" type="file" accept=".xlsx,.csv" required>
+              <button class="secondary" type="submit" id="import-button">Importar archivo</button>
+            </form>
+            <div id="import-status" class="import-status" aria-live="polite"></div>
+          </section>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">CONSULTA DE DATOS</p>
+              <h2>Realizar una consulta</h2>
+            </div>
+            <span class="privacy">Procesamiento local</span>
+          </div>
+          <div class="suggestions" aria-label="Preguntas sugeridas">
+            <button type="button" data-question="¿Cuál fue el último tipo de cambio de venta?">Último registro</button>
+            <button type="button" data-question="Compara el promedio de compra y venta en 2026">Promedio anual</button>
+            <button type="button" data-question="¿Cuál fue el máximo de venta en 2026?">Máximo registrado</button>
+            <button type="button" data-question="Muestra la evolución de compra y venta">Evolución</button>
+          </div>
+          <form id="question-form">
+            <label class="sr-only" for="question">Escribe una pregunta sobre el tipo de cambio</label>
+            <textarea id="question" name="question" rows="3" placeholder="Ej.: ¿Cuál fue el promedio de venta en 2026?" required></textarea>
+            <div class="form-footer">
+              <span>Consultas disponibles: último dato, promedios, máximos, mínimos y variaciones.</span>
+              <button class="primary" type="submit" id="submit-button">Consultar <span aria-hidden="true">→</span></button>
+            </div>
+          </form>
+          <div id="error" class="error" role="alert" hidden></div>
+          <section id="answer" class="answer" aria-live="polite" hidden>
+            <div class="answer-title"><span class="answer-icon">✓</span><h3>Resultado</h3></div>
+            <p id="answer-text"></p>
+            <div class="chart-wrap">
+              <div class="chart-heading"><strong>Serie disponible</strong><span>CRC por USD</span></div>
+              <svg id="chart" viewBox="0 0 760 240" role="img" aria-label="Gráfico de tipo de cambio"></svg>
+              <div class="legend"><span><i class="buy-dot"></i>Compra</span><span><i class="sell-dot"></i>Venta</span></div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Indicador</th><th>Resultado</th><th>Fecha</th></tr></thead>
+                <tbody id="results"></tbody>
+              </table>
+            </div>
+            <div class="provenance" id="provenance"></div>
+          </section>
+        </div>
+        <aside class="side-card">
+          <p class="eyebrow">INFORMACIÓN DE LA SERIE</p>
+          <h2>Datos y metodología</h2>
+          <p>La serie contiene valores de compra y venta expresados en colones por dólar estadounidense.</p>
+          <dl class="series-details">
+            <div><dt>Indicadores</dt><dd>Compra y venta</dd></div>
+            <div><dt>Unidad</dt><dd>CRC por USD</dd></div>
+            <div><dt>Fuente registrada</dt><dd id="source-name">Consultando fuente…</dd></div>
+          </dl>
+          <div class="method-note">
+            <strong>Cómo se generan los resultados</strong>
+            <p>El modelo local interpreta la consulta. Los cálculos se realizan sobre los registros guardados y se muestran junto con su cobertura y procedencia.</p>
+          </div>
+        </aside>
+      </section>
+      <footer>Prototipo académico · Tipo de cambio de referencia · No constituye asesoría financiera.</footer>
+    </main>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

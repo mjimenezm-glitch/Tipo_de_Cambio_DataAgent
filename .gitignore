@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.py[cod]
+data/*.sqlite3
+data/*.sqlite3-shm
+data/*.sqlite3-wal
+.venv/
+NOTAS_DATA_AGENT.md
